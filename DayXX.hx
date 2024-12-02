@@ -1,4 +1,5 @@
 using StringTools;
+import Math.*;
 
 // haxe --interp --main Dayxx.hx
 class DayXX {
