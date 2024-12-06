@@ -31,4 +31,15 @@ class PrimitiveTools {
         for (v in arr) if (!f(v)) return false;
         return true;
     }
+
+    public static function clone<T>(a:Array<Array<T>>):Array<Array<T>> {
+        var n:Array<Array<T>> = [];
+        for (y in 0...a.length) {
+            n.push([]);
+            for (x in 0...a[y].length) {
+                n[y].push(a[y][x]);
+            }
+        }
+        return n;
+    }
 }
