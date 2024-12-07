@@ -1,8 +1,15 @@
+
 class PrimitiveTools {
 
     public static inline function repeat(str:String, n:Int) {
         var s = "";
         for (_ in 0...n) s += str;
+        return s;
+    }
+
+    public static inline function flatten(arr:Array<String>) {
+        var s = "";
+        for (v in arr) s += v;
         return s;
     }
 
