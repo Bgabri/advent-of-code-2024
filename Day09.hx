@@ -72,15 +72,11 @@ class Day09 {
         var memoryLength:Input = [for (v in lengths) v];
         var memoryValues:Input = [for (i in 0...lengths.length) if (i%2 == 0) floor(i/2) else -1];
         var memoryOffset:Input = [for (i in 0...lengths.length) if (i%2 == 0) 2 else 0];
-
-        trace(memoryLength);
-        trace(memoryValues);
-
+        
         var index = lengths.length - 1;
         while (index >= 0) {
             var currentLength = memoryLength[index];
             var currentValue = memoryValues[index];
-            trace(currentValue);
             for (i in 0...index) {
                 var v = memoryValues[i];
                 var l = memoryLength[i];
@@ -113,16 +109,12 @@ class Day09 {
                 p+=memoryLength[i];
             } else {
                 for (j in 0...memoryLength[i]) {
-                    trace(memoryValues[i], p);
                     total += memoryValues[i] * p;
                     p++;
                 }
             }
         }
 
-        trace(memoryLength);
-        trace(memoryValues);
-        trace(memoryOffset);
         return total;
     }
 
