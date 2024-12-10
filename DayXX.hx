@@ -2,6 +2,7 @@ using StringTools;
 using PrimitiveTools;
 using Lambda;
 import Math.*;
+import Utils.*;
 
 // haxe --interp --main DayXX.hx
 typedef Input = Array<Array<Int>>;
