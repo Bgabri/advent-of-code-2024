@@ -29,7 +29,7 @@ class PrimitiveTools {
         return s;
     }
 
-    public static function max<T:Int>(arr:Array<T>):T {
+    public static function max<T:Float>(arr:Array<T>):T {
         var maxV:T = arr[0];
         for (v in arr) {
             if (maxV < v) maxV = v;
@@ -37,7 +37,7 @@ class PrimitiveTools {
         return maxV;
     }
 
-    public static function min<T:Int>(arr:Array<T>):T {
+    public static function min<T:Float>(arr:Array<T>):T {
         var minV:T = arr[0];
         for (v in arr) {
             if (minV > v) minV = v;
