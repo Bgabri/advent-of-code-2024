@@ -13,8 +13,8 @@ class DayXX {
     }
 
     static function part1(input:Input) {
-        trace(input);
         var total = 0;
+        trace(input);
         return total;
     }
 
