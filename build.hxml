@@ -1,6 +1,3 @@
 -p src
---macro Main.loadFiles()
+--main Main
 --run Main
-# --main Main
-# -cppia bin/main.cppia
-# -cpp bin

@@ -1,3 +1,4 @@
+import haxe.Timer;
 import sys.FileSystem;
 import haxe.macro.Expr;
 import utils.FilePath;
@@ -12,7 +13,7 @@ class Main {
         if (day == null) day = Date.now().getDate();
         if (day < 1) day = 1;
         if (day > 25) day = 25;
-
+        
         this.day = '$day';
         if (day < 10) this.day = '0$day';
         var days:Array<Day> = initDays();
@@ -34,11 +35,23 @@ class Main {
 
     public function runDay(day:String, prog:Day) {
         var inputFile = 'inputs/${day}.txt';
+
+        var before = Timer.stamp();
         var part1 = Std.string(prog.loadFile(inputFile).part1());
-        Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');
+        var after = Timer.stamp();
         
+        Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');
+        Sys.println('took: ${Math.round((after - before)*100)/100}s');
+
+        
+        var before = Timer.stamp();
         var part2 = Std.string(prog.loadFile(inputFile).part2());
+        var after = Timer.stamp();
+
         Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 2: \x1b[1m\x1b[33m$part2\x1b[0m');        
+        Sys.println('took: ${Math.round((after - before)*100)/100}s');
+
+
     }
 
     static public function loadFiles() {
