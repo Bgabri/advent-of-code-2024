@@ -16,12 +16,11 @@ a = (p.x*b.y-p.y*b.x)/(a.x*b.y - a.y*b.x)
 
 import haxe.Int64;
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
-import Utils.*;
+import utils.Utils.*;
 
-// haxe --interp --main Day13.hx
 typedef Input = Array<{p:{x:Float, y:Float}, a:{x:Float, y:Float}, b:{x:Float, y:Float}}>;
 class Day13 implements Day {
 

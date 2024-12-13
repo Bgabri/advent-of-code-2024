@@ -1,3 +1,4 @@
+package utils;
 class Utils {
     public static inline function div<T:Float>(a:T, b:T):Int {
         return Std.int(a/b);

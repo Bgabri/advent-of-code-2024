@@ -1,8 +1,8 @@
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
-import Utils.*;
+import utils.Utils.*;
 
 // haxe --interp --main DayXX.hx
 typedef Input = Array<Array<Int>>;
