@@ -1,32 +1,32 @@
 import haxe.Int64;
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 
 import Math.*;
 
 // haxe --interp --main Day09.hx
-typedef Input = Array<Int>;
+private typedef Input = Array<Int>;
 
-class Day09 {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/09.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/09.txt")));
-    }
+class Day09 implements Day {
 
-    static function part1(lengths:Input) {
+    var input:Input;
+
+    public function new() {}
+
+    public function part1() {
         var memoryLength:Input = [];
         var memoryValues:Input = [];
 
         var headValue = 0;
-        var tailValue = floor(lengths.length/2) +1;
+        var tailValue = floor(input.length/2) +1;
         var leftOverLength = 0;
-        while (!lengths.empty()) {
-            var headLength = lengths.shift();
+        while (!input.empty()) {
+            var headLength = input.shift();
             memoryLength.push(headLength);
             memoryValues.push(headValue);
             
-            var freeLength = lengths.shift();
+            var freeLength = input.shift();
             while (freeLength > 0) {
                 if (leftOverLength > 0) {
                     if (freeLength < leftOverLength) {
@@ -41,8 +41,8 @@ class Day09 {
                         leftOverLength = 0;
                     }
                 } else {
-                    leftOverLength = lengths.pop();
-                    lengths.pop(); // free
+                    leftOverLength = input.pop();
+                    input.pop(); // free
                     tailValue --;
                 }
             }
@@ -65,15 +65,15 @@ class Day09 {
             }
         }
 
-        return total;
+        return Std.string(total);
     }
 
-    static function part2(lengths:Input) {
-        var memoryLength:Input = [for (v in lengths) v];
-        var memoryValues:Input = [for (i in 0...lengths.length) if (i%2 == 0) floor(i/2) else -1];
-        var memoryOffset:Input = [for (i in 0...lengths.length) if (i%2 == 0) 2 else 0];
+    public function part2() {
+        var memoryLength:Input = [for (v in input) v];
+        var memoryValues:Input = [for (i in 0...input.length) if (i%2 == 0) floor(i/2) else -1];
+        var memoryOffset:Input = [for (i in 0...input.length) if (i%2 == 0) 2 else 0];
         
-        var index = lengths.length - 1;
+        var index = input.length - 1;
         while (index >= 0) {
             var currentLength = memoryLength[index];
             var currentValue = memoryValues[index];
@@ -115,10 +115,10 @@ class Day09 {
             }
         }
 
-        return total;
+        return Std.string(total);
     }
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -127,6 +127,7 @@ class Day09 {
         var inp = line.split("");
         input = inp.map(v -> Std.parseInt(v));
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

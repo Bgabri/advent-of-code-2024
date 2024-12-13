@@ -1,29 +1,29 @@
 using StringTools;
-using utils.PrimitiveTools;
 using Lambda;
-import Math.*;
+using utils.PrimitiveTools;
 import utils.Utils.*;
+import Math.*;
 
-// haxe --interp --main DayXX.hx
-typedef Input = Array<Array<Int>>;
-class DayXX {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/XX.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/XX.txt")));
-    }
+// haxe build.hxml XX
+private typedef Input = Array<Array<Int>>;
+class DayXX implements Day {
 
-    static function part1(input:Input) {
+    var input:Input;
+
+    public function new() {}
+
+    public function part1() {
         var total = 0;
         trace(input);
         return total;
     }
 
-    static function part2(input:Input) {
+    public function part2() {
         var total = 0;
         return total;
     }
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -37,6 +37,7 @@ class DayXX {
             input.push(inp2);
         }
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

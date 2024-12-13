@@ -21,7 +21,7 @@ using Lambda;
 import Math.*;
 import utils.Utils.*;
 
-typedef Input = Array<{p:{x:Float, y:Float}, a:{x:Float, y:Float}, b:{x:Float, y:Float}}>;
+private typedef Input = Array<{p:{x:Float, y:Float}, a:{x:Float, y:Float}, b:{x:Float, y:Float}}>;
 class Day13 implements Day {
 
     var input:Input;
@@ -97,5 +97,6 @@ class Day13 implements Day {
 
         iterator.close();
         this.input = input;
+        return this;
     }
 }

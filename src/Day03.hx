@@ -2,64 +2,65 @@ using StringTools;
 import Math.*;
 
 // haxe --interp --main Day03.hx
-typedef Input = String;
-class Day03 {
-	static function main() {
-		trace("solution to part 1: " + part1(loadFile("inputs/03.txt")));
-		trace("solution to part 2: " + part2(loadFile("inputs/03.txt")));
-	}
+private typedef Input = Array<String>;
+class Day03 implements Day {
 
-	static function part1(input:Array<Input>) {
-		var total = 0;
+    var input:Input;
 
-		var reg = ~/mul\(([0-9]+),([0-9]+)\)/;
-		for (line in input) {
-			while (reg.match(line)) {
-				var a = Std.parseInt(reg.matched(1));
-				var b = Std.parseInt(reg.matched(2));
+    public function new() {}
 
-				line = reg.matchedRight();
-				total += a*b;
-			}
-		}
+    public function part1() {
+        var total = 0;
 
-		return total;
-	}
+        var reg = ~/mul\(([0-9]+),([0-9]+)\)/;
+        for (line in input) {
+            while (reg.match(line)) {
+                var a = Std.parseInt(reg.matched(1));
+                var b = Std.parseInt(reg.matched(2));
 
-	static function part2(input:Array<Input>) {
-		var total = 0;
+                line = reg.matchedRight();
+                total += a*b;
+            }
+        }
 
-		var reg = ~/(mul\(([0-9]+),([0-9]+)\))|(do\(\))|(don't\(\))/;
+        return total;
+    }
 
-		var flag = true;
-		for (line in input) {
-			while (reg.match(line)) {
-				var a = Std.parseInt(reg.matched(2));
-				var b = Std.parseInt(reg.matched(3));
+    public function part2() {
+        var total = 0;
 
-				if (reg.matched(4) != null) flag = true;
-				else if (reg.matched(5) != null) flag = false;
-				else if (flag) total += a*b;
+        var reg = ~/(mul\(([0-9]+),([0-9]+)\))|(do\(\))|(don't\(\))/;
 
-				line = reg.matchedRight();
-			}
-		}
+        var flag = true;
+        for (line in input) {
+            while (reg.match(line)) {
+                var a = Std.parseInt(reg.matched(2));
+                var b = Std.parseInt(reg.matched(3));
 
-		return total;
-	}
+                if (reg.matched(4) != null) flag = true;
+                else if (reg.matched(5) != null) flag = false;
+                else if (flag) total += a*b;
 
-	static function loadFile(file:String):Array<Input> {
-		var input:Array<Input> = [];
-		var iterator = sys.io.File.read(file, false);
+                line = reg.matchedRight();
+            }
+        }
 
-		while (!iterator.eof()) {
-			var line = iterator.readLine();
-			if (line == "")
-				continue;
+        return total;
+    }
 
-			input.push(line);
-		}
-		iterator.close();
-		return input;
-	}
+    public function loadFile(file:String) {
+        var input:Input = [];
+        var iterator = sys.io.File.read(file, false);
+
+        while (!iterator.eof()) {
+            var line = iterator.readLine();
+            if (line == "")
+                continue;
+
+            input.push(line);
+        }
+        iterator.close();
+        this.input = input;
+        return this;
+    }
 }

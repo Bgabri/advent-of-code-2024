@@ -1,16 +1,15 @@
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
 
 // haxe --interp --main Day06.hx
-typedef Input = Array<Array<String>>;
-class Day06 {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/06.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/06.txt")));
-    }
+private  typedef Input = Array<Array<String>>;
+class Day06 implements Day {
 
+    var input:Input;
+
+    public function new() {}
 
     static function step(world:Input, x, y) {
         var line = world[y];
@@ -38,7 +37,7 @@ class Day06 {
     }
 
 
-    static function part1(input:Input) {
+    public function part1() {
         var xP = 0;
         var yP = 0;
         var count:Array<Array<Int>> = [];
@@ -81,7 +80,7 @@ class Day06 {
         return total;
     }
 
-    static function part2(input:Input) {
+    public function part2() {
         var xP = 0;
         var yP = 0;
         var count:Array<Array<Int>> = [];
@@ -130,7 +129,7 @@ class Day06 {
         return total-1;
     }
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -142,6 +141,7 @@ class Day06 {
             input.push(line.split(""));
         }
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

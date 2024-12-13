@@ -1,17 +1,17 @@
 import haxe.Int64;
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
-import Utils.*;
+import utils.Utils.*;
 
 // haxe --interp --main Day11.hx
-typedef Input = Map<Int64, Int64>;
-class Day11 {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/11.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/11.txt")));
-    }
+private typedef Input = Map<Int64, Int64>;
+class Day11 implements Day {
+
+    var input:Input;
+
+    public function new() {}
 
     static function numDigits(N:Int64) {
         var n = 0;
@@ -49,7 +49,7 @@ class Day11 {
         return next;
     }
 
-    static function part1(input:Input) {
+    public function part1() {
         for (i in 0...25) {
             input = blink(input);
         }
@@ -57,7 +57,7 @@ class Day11 {
         return input.fold((a, b) -> a+b, 0);
     }
 
-    static function part2(input:Input) {
+    public function part2() {
         for (i in 0...75) {
             input = blink(input);
         }
@@ -65,7 +65,7 @@ class Day11 {
         return input.fold((a, b) -> a+b, 0);
     }
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -77,6 +77,7 @@ class Day11 {
             add(input, v, 1);
         }
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

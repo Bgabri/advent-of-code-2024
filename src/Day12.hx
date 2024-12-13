@@ -1,16 +1,16 @@
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
-import Utils.*;
+import utils.Utils.*;
 
 // haxe --interp --main Day12.hx
-typedef Input = Array<Array<String>>;
-class Day12 {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/12.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/12.txt")));
-    }
+private typedef Input = Array<Array<String>>;
+class Day12 implements Day {
+
+    var input:Input;
+
+    public function new() {}
 
     static function floodFill(c:String, map:Input, x:Int, y:Int) {
         if (map[y] == null) return {a:0, p:1};
@@ -29,7 +29,7 @@ class Day12 {
     }
 
     
-    static function part1(input:Input) {
+    public function part1() {
 
         var total = 0;
         for (y in 0...input.length) {
@@ -86,7 +86,7 @@ class Day12 {
         return corners;
     }
 
-    static function part2(input:Input) {
+    public function part2() {
         var total = 0;
         for (y in 0...input.length) {
             var line = input[y];
@@ -103,7 +103,7 @@ class Day12 {
         return total;
     }
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -115,6 +115,7 @@ class Day12 {
             input.push(inp);
         }
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

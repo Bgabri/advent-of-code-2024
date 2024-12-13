@@ -1,16 +1,16 @@
 import haxe.Int64;
 using StringTools;
-using PrimitiveTools;
+using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
 
 // haxe --interp --main Day07.hx
-typedef Input = Array<{n:Int64, vs:Array<Int64>}>;
-class Day07 {
-    static function main() {
-        trace("solution to part 1: " + part1(loadFile("inputs/07.txt")));
-        trace("solution to part 2: " + part2(loadFile("inputs/07.txt")));
-    }
+private typedef Input = Array<{n:Int64, vs:Array<Int64>}>;
+class Day07 implements Day {
+
+    var input:Input;
+
+    public function new() {}
 
     static function back(goal:Int64, current:Int64, pos:Int, eq:Array<Int64>) {
         if (current > goal) return false;
@@ -19,7 +19,7 @@ class Day07 {
         return back(goal, current*eq[pos], pos+1, eq)
             || back(goal, current+eq[pos], pos+1, eq);
     }
-    static function part1(input:Input) {
+    public function part1() {
         var total:Int64 = 0;
         for (line in input) {
             if (back(line.n, line.vs[0], 1, line.vs)) { 
@@ -53,7 +53,7 @@ class Day07 {
             || back2(goal, current+eq[pos], pos+1, eq);
     }
     
-    static function part2(input:Input) {
+    public function part2() {
         var total:Int64 = 0;
         for (line in input) {
             if (back2(line.n, line.vs[0], 1, line.vs)) { 
@@ -64,7 +64,7 @@ class Day07 {
     }
 
 
-    static function loadFile(file:String):Input {
+    public function loadFile(file:String) {
         var input:Input = [];
         var iterator = sys.io.File.read(file, false);
 
@@ -76,6 +76,7 @@ class Day07 {
             input.push({n: Int64.parseString(aa[0]), vs: inp2});
         }
         iterator.close();
-        return input;
+        this.input = input;
+        return this;
     }
 }

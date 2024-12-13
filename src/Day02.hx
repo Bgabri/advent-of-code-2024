@@ -2,73 +2,77 @@ using StringTools;
 import Math.*;
 
 // haxe --interp --main Day02.hx
-class Day02 {
-	static function main() {
-		trace("solution to part 1: " + part1(loadFile("inputs/02.txt")));
-		trace("solution to part 2: " + part2(loadFile("inputs/02.txt")));
-	}
+private typedef Input = Array<Array<Int>>;
 
+class Day02 implements Day {
 
-	static function isValid(lin) {
-		var inc = true;
-		if (lin[1] < lin[0]) inc = false;
+    var input:Input;
 
-		var valid = true;
-		for (i in 1...lin.length) {
-			var diff = lin[i] - lin[i-1];
+    public function new() {}
 
-			if (diff < 0 && inc) return false;
-			else if (diff > 0 && !inc) return false;
+    function isValid(lin) {
+        var inc = true;
+        if (lin[1] < lin[0]) inc = false;
 
-			var diff = floor(abs(diff));
-			if (diff < 1 || diff > 3) return false;
-			
-		}
-		return true;
-	}
-	static function part1(input:Array<Array<Int>>):Int {
-		var total = 0 ;
-		for (lin in input) {
-			if (isValid(lin)) {
-				total ++;
-			}
-		}
-		return total;
-	}
+        var valid = true;
+        for (i in 1...lin.length) {
+            var diff = lin[i] - lin[i-1];
 
-	static function part2(input:Array<Array<Int>>):Int {
-		var total = 0 ;
-		for (lin in input) {
-			if (isValid(lin)) {
-				total ++;
-			} else {
-				for (i in 0...lin.length) {
-					var lin2 = lin.copy();
-					lin2.splice(i, 1);
-					if(isValid(lin2)) {
-						total++;
-						break;
-					}
-				}
-			}
-		}
-		return total;
-	}
+            if (diff < 0 && inc) return false;
+            else if (diff > 0 && !inc) return false;
 
-	static function loadFile(file:String):Array<Array<Int>> {
-		var input:Array<Array<Int>> = [];
-		var iterator = sys.io.File.read(file, false);
+            var diff = floor(abs(diff));
+            if (diff < 1 || diff > 3) return false;
+            
+        }
+        return true;
+    }
 
-		while (!iterator.eof()) {
-			var line = iterator.readLine();
-			if (line == "")
-				continue;
+    public function part1():Int {
+        var total = 0 ;
+        for (lin in input) {
+            if (isValid(lin)) {
+                total ++;
+            }
+        }
+        return total;
+    }
 
-			var inp = line.split(" ");
-			var inp2:Array<Int> = inp.map(v -> Std.parseInt(v));
-			input.push(inp2);
-		}
-		iterator.close();
-		return input;
-	}
+    public function part2():Int {
+        var total = 0 ;
+        for (lin in input) {
+            if (isValid(lin)) {
+                total ++;
+            } else {
+                for (i in 0...lin.length) {
+                    var lin2 = lin.copy();
+                    lin2.splice(i, 1);
+                    if(isValid(lin2)) {
+                        total++;
+                        break;
+                    }
+                }
+            }
+        }
+        return total;
+    }
+
+    public function loadFile(file:String) {
+        var input:Input = [];
+        var iterator = sys.io.File.read(file, false);
+
+        while (!iterator.eof()) {
+            var line = iterator.readLine();
+            if (line == "")
+                continue;
+
+            var inp = line.split(" ");
+            var inp2:Array<Int> = inp.map(v -> Std.parseInt(v));
+            input.push(inp2);
+        }
+        iterator.close();
+        this.input = input;
+
+        return this;
+    }
 }
