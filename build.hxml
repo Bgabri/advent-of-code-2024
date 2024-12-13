@@ -1,4 +1,6 @@
-# --interp
-# --main Main
 -p src
+--macro Main.loadFiles()
 --run Main
+# --main Main
+# -cppia bin/main.cppia
+# -cpp bin
