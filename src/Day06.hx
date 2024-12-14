@@ -14,26 +14,25 @@ class Day06 implements Day {
     static function step(world:Input, x, y) {
         var line = world[y];
         var c = line[x];
-        var u = (y-1 < 0)             ? "." : world[y-1][x];
-        var d = (y+1 >= world.length) ? "." : world[y+1][x];
-        var l = (x-1 < 0)             ? "." : world[y][x-1];
-        var r = (x+1 >= line.length)  ? "." : world[y][x+1];
-        return switch [c, u, d, l, r] {
-            case ["^","#", _ , _ , _ ]: {c: ">", x: x, y: y};
-            case ["v", _ ,"#", _ , _ ]: {c: "<", x: x, y: y};
-            case ["<", _ , _ ,"#", _ ]: {c: "^", x: x, y: y};
-            case [">", _ , _ , _ ,"#"]: {c: "v", x: x, y: y};
-
-            case ["^",".", _ , _ , _ ]: {c: "^", x: x,   y: y-1};
-            case ["v", _ ,".", _ , _ ]: {c: "v", x: x,   y: y+1};
-            case ["<", _ , _ ,".", _ ]: {c: "<", x: x-1, y: y  };
-            case [">", _ , _ , _ ,"."]: {c: ">", x: x+1, y: y  };
-            // case [".","v", _ , _ , _ ]: {c: "v", x: x, y:y };
-            // case [".", _ ,"^", _ , _ ]: {c: "^", x: x, y:y };
-            // case [".", _ , _ ,">", _ ]: {c: ">", x: x, y:y };
-            // case [".", _ , _ , _ ,"<"]: {c: "<", x: x, y:y };
-            case _: {c: c, x: x, y: y};
+        var dt = switch c {
+            case "^": {c: "^", x: x,   y: y-1};
+            case "v": {c: "v", x: x,   y: y+1};
+            case "<": {c: "<", x: x-1, y: y  };
+            case ">": {c: ">", x: x+1, y: y  };
+            case _: throw "huh?";
         }
+
+        if (world[dt.y] != null && world[dt.y][dt.x] == "#") {
+            return switch c {
+                case "^": {c: ">", x: x, y: y};
+                case "v": {c: "<", x: x, y: y};
+                case "<": {c: "^", x: x, y: y};
+                case ">": {c: "v", x: x, y: y};
+                case _: throw "huh?";
+            }
+        }
+
+        return dt;
     }
 
 
@@ -66,15 +65,10 @@ class Day06 implements Day {
             xP = n.x;
             yP = n.y;
         }
-        
-        // for (line in input) {
-        //     trace(line);
-        // }
 
         var total = 0;
         for (line in count) {
             total += line.count((x)-> x > 0);
-            // trace(line);
         }
 
         return total;
@@ -83,11 +77,8 @@ class Day06 implements Day {
     public function part2() {
         var xP = 0;
         var yP = 0;
-        var count:Array<Array<Int>> = [];
         for (y in 0...input.length) {
-            count.push([]);
             for (x in 0...input[y].length) {
-                count[y].push(0);
                 var c = input[y][x];
                 switch c {
                     case "^": xP = x; yP = y;
@@ -102,31 +93,32 @@ class Day06 implements Day {
         var total = 0;
         for (y in 0...input.length) {
             for (x in 0...input[y].length) {
-                var count2 = count.clone();
-                var world = input.clone();
-                world[y][x] = "#";
+                if (input[y][x] == "#" || input[y][x] == "^") continue;
+                input[y][x] = "#";
                 var px = xP;
                 var py = yP;
 
-                while (true) {
-                    var n = step(world, px, py);
-                    count2[py][px] ++;
-                    if (0 > n.y || n.y >= world.length) break;
-                    if (0 > n.x || n.x >= world[n.y].length) break;
-                    if (count2[py][px] > 4) {
-                        total++;
-                        break;
-                    }
-                    
-                    world[py][px] = ".";
-                    world[n.y][n.x] = n.c;
+                var steps = 0;
+                var max = input.length*input.length/2;
+                while (steps < max) {
+                    var n = step(input, px, py);
+                    if (input[n.y] == null) break;
+                    if (input[n.y][n.x] == null) break;
+
+                    input[py][px] = ".";
+                    input[n.y][n.x] = n.c;
                     px = n.x;
                     py = n.y;
+                    steps++;
                 }
+                if (steps == max) total++;
+                input[py][px] = ".";
+                input[y][x] = ".";
+                input[yP][xP] = "^";
             }
         }
 
-        return total-1;
+        return total;
     }
 
     public function loadFile(file:String) {

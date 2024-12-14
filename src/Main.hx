@@ -1,3 +1,14 @@
+
+/**
+ * 
+ * todo: download inputs
+ * int64
+ * matrices
+ * vectors
+ * separate utils lib
+ */
+
+
 import haxe.Timer;
 import sys.FileSystem;
 import haxe.macro.Expr;
@@ -13,7 +24,6 @@ class Main {
         if (day == null) day = Date.now().getDate();
         if (day < 1) day = 1;
         if (day > 25) day = 25;
-        
         this.day = '$day';
         if (day < 10) this.day = '0$day';
         var days:Array<Day> = initDays();
@@ -37,7 +47,7 @@ class Main {
         var inputFile = 'inputs/${day}.txt';
 
         var before = Timer.stamp();
-        var part1 = Std.string(prog.loadFile(inputFile).part1());
+        var part1 = prog.loadFile(inputFile).part1();
         var after = Timer.stamp();
         
         Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');
@@ -45,7 +55,7 @@ class Main {
 
         
         var before = Timer.stamp();
-        var part2 = Std.string(prog.loadFile(inputFile).part2());
+        var part2 = prog.loadFile(inputFile).part2();
         var after = Timer.stamp();
 
         Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 2: \x1b[1m\x1b[33m$part2\x1b[0m');        
@@ -58,9 +68,10 @@ class Main {
         var todayExists = false;
         var day = Date.now().getDate();
         if (day > 25) day = 25;
-        
+        var strDay = '${day}';
+        if (day < 10) strDay = '0$day';
         var srcPath:FilePath = "./src";
-        var today = srcPath + 'Day$day.hx';
+        var today = srcPath + 'Day$strDay.hx';
         var regex = ~/^.*\/Day\d{2}.hx$/;
         var classPaths:Array<FilePath> = [];
         for (file in srcPath.readDirectory()) {
@@ -75,11 +86,12 @@ class Main {
             var template = srcPath + "DayXX.hx";
             var s = template.getContent();    
             while (regex.match(s)) {
-                s = regex.replace(s, '$day');
+                s = regex.replace(s, strDay);
             }
-            var todayIn:FilePath = './inputs/$day.txt';
+
+            var todayIn:FilePath = './inputs/$strDay.txt';
             today.saveContent(s);
-            todayIn.saveContent("");
+            todayIn.saveContent(" ");
 
             classPaths.push(today);
         }
