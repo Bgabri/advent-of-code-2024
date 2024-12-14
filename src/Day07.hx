@@ -4,7 +4,7 @@ using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
 
-// haxe --interp --main Day07.hx
+// haxe build.hxml 07
 private typedef Input = Array<{n:Int64, vs:Array<Int64>}>;
 class Day07 implements Day {
 

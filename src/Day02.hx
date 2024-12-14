@@ -1,9 +1,8 @@
 using StringTools;
 import Math.*;
 
-// haxe --interp --main Day02.hx
+// haxe build.hxml 02
 private typedef Input = Array<Array<Int>>;
-
 class Day02 implements Day {
 
     var input:Input;

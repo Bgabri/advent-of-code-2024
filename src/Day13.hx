@@ -21,6 +21,7 @@ using Lambda;
 import Math.*;
 import utils.Utils.*;
 
+// haxe build.hxml 13
 private typedef Input = Array<{p:{x:Float, y:Float}, a:{x:Float, y:Float}, b:{x:Float, y:Float}}>;
 class Day13 implements Day {
 

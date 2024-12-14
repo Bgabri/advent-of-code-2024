@@ -1,7 +1,7 @@
 using StringTools;
 import Math.*;
 
-// haxe --interp --main Day03.hx
+// haxe build.hxml 03
 private typedef Input = Array<String>;
 class Day03 implements Day {
 

@@ -5,7 +5,7 @@ using Lambda;
 import Math.*;
 import utils.Utils.*;
 
-// haxe --interp --main Day11.hx
+// haxe build.hxml 11
 private typedef Input = Map<Int64, Int64>;
 class Day11 implements Day {
 

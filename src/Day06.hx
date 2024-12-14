@@ -3,7 +3,7 @@ using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
 
-// haxe --interp --main Day06.hx
+// haxe build.hxml 06
 private  typedef Input = Array<Array<String>>;
 class Day06 implements Day {
 
@@ -87,7 +87,6 @@ class Day06 implements Day {
                     case ">": xP = x; yP = y;
                 }
             }
-
         }
 
         var total = 0;

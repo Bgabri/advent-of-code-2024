@@ -4,7 +4,7 @@ using Lambda;
 import Math.*;
 import utils.Utils.*;
 
-// haxe --interp --main Day10.hx
+// haxe build.hxml 10
 private typedef Input = Array<Array<Int>>;
 class Day10 implements Day {
 

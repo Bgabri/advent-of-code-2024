@@ -3,7 +3,7 @@ using utils.PrimitiveTools;
 using Lambda;
 import Math.*;
 
-// haxe --interp --main Day08.hx
+// haxe build.hxml 08
 private typedef Input = Array<Array<String>>;
 class Day08 implements Day {
 
