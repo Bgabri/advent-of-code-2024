@@ -14,6 +14,8 @@ import sys.FileSystem;
 import haxe.macro.Expr;
 import utils.FilePath;
 using Lambda;
+using utils.Utils;
+using utils.PrimitiveTools;
 
 
 class Main {
@@ -46,22 +48,25 @@ class Main {
     public function runDay(day:String, prog:Day) {
         var inputFile = 'inputs/${day}.txt';
 
+        Sys.println("-".repeat(10));
+
         var before = Timer.stamp();
         var part1 = prog.loadFile(inputFile).part1();
         var after = Timer.stamp();
         
-        Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');
-        Sys.println('took: ${Math.round((after - before)*100)/100}s');
+        Sys.println('day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');        
+        Sys.println('\x1b[2m[${Math.round((after - before)*100)/100}s]\x1b[0m');
 
-        
+        Sys.println("-".repeat(10));
+    
         var before = Timer.stamp();
         var part2 = prog.loadFile(inputFile).part2();
         var after = Timer.stamp();
 
-        Sys.println('\x1b[2msolution to\x1b[0m day ${day} part 2: \x1b[1m\x1b[33m$part2\x1b[0m');        
-        Sys.println('took: ${Math.round((after - before)*100)/100}s');
+        Sys.println('day ${day} part 2: \x1b[1m\x1b[33m$part2\x1b[0m');        
+        Sys.println('\x1b[2m[${Math.round((after - before)*100)/100}s]\x1b[0m');
 
-
+        Sys.println("-".repeat(10));
     }
 
     static public function loadFiles() {

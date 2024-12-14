@@ -15,4 +15,9 @@ class Utils {
     public static inline function clamp<T:Float>(x:T, lower:T, higher:T):T {
         return min(higher, max(lower, x));
     }
+    public static inline function abs<T:Float>(a:T):T {
+        if (a < 0) return -a;
+        return a;
+        
+    }
 }

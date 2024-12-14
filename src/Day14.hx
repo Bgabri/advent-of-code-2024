@@ -1,8 +1,8 @@
 using StringTools;
 using Lambda;
 using utils.PrimitiveTools;
-import utils.Utils.*;
 import Math.*;
+import utils.Utils.*;
 
 // haxe build.hxml 14
 private typedef Input = Array<{p:{x:Int, y:Int}, v:{x:Int, y:Int}}>;
@@ -13,7 +13,6 @@ class Day14 implements Day {
     public function new() {}
 
     public function part1() {
-        var total = 0;
         var steps = 100;
         var sizeX = 101;
         var sizeY = 103;
@@ -47,19 +46,18 @@ class Day14 implements Day {
         return q1*q2*q3*q4;
     }
 
-    function closeness(map:Input) {
-        var score = 0;
-        for (i in 0...input.length) {
-            var r1 = input[i];
-            for (j in i+1...input.length) {
-                var r2 = input[j];
-                if (abs(r1.p.x - r2.p.x) + abs(r1.p.y - r2.p.y) < 2) {
-                    score++;
-                }
-            }
-
+    function variance(map:Input) {
+        var avrgX = 50;
+        var avrgY = 51;
+        
+        var varianceX = 0;
+        var varianceY = 0;
+        for (v in map) {
+            varianceX += abs(avrgX - v.p.x);
+            varianceY += abs(avrgY - v.p.y);
         }
-        return score;
+
+        return varianceX < 20*map.length && varianceY < 20*map.length;
     }
 
     public function part2() {
@@ -67,8 +65,7 @@ class Day14 implements Day {
         var sizeY = 103;
         
         var xmasStep = 0;
-        while (closeness(input) < 500) {
-            
+        while (!variance(input)) {
             for (r in input) {
                 r.p.x = (r.p.x + r.v.x)%sizeX;
                 r.p.y = (r.p.y + r.v.y)%sizeY;
@@ -83,6 +80,7 @@ class Day14 implements Day {
         for (line in pic) {
             Sys.println(line.map((n) -> n == 0 ? "\x1b[2m.\x1b[0m" : "\x1b[32m#\x1b[0m").join(" "));
         }
+
         return xmasStep;
     }
 
