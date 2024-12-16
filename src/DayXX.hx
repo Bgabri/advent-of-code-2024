@@ -1,3 +1,4 @@
+import utils.FilePath.FilePathImp;
 using StringTools;
 using Lambda;
 using utils.PrimitiveTools;
@@ -14,7 +15,7 @@ class DayXX implements Day {
 
     public function part1() {
         var total = 0;
-        trace(input);
+        input.prettyPrint();
         return total;
     }
 
@@ -25,18 +26,14 @@ class DayXX implements Day {
 
     public function loadFile(file:String) {
         var input:Input = [];
-        var iterator = sys.io.File.read(file, false);
+        var f = new FilePathImp(file);
+        
+        var inp = f.getContent();
 
-        while (!iterator.eof()) {
-            var line = iterator.readLine();
-            if (line == "")
-                continue;
+        // input = inp.split("\n").map((line) -> line.split(""));
+        input = inp.split("\n").map((line) -> line.split("").map(Std.parseInt));
+        input = input.filter(v -> v.length != 0);
 
-            var inp = line.split("");
-            var inp2:Array<Int> = inp.map(v -> Std.parseInt(v));
-            input.push(inp2);
-        }
-        iterator.close();
         this.input = input;
         return this;
     }

@@ -50,7 +50,7 @@ class Main {
         }
 
 
-        Sys.println("-".repeat(10));
+        Sys.println("─".repeat(15));
 
         var before = Timer.stamp();
         var part1 = prog.loadFile(inputFile).part1();
@@ -59,7 +59,7 @@ class Main {
         Sys.println('day ${day} part 1: \x1b[1m\x1b[33m$part1\x1b[0m');
         printTiming(before, after);
 
-        Sys.println("-".repeat(10));
+        Sys.println("─".repeat(15));
     
         var before = Timer.stamp();
         var part2 = prog.loadFile(inputFile).part2();
@@ -68,7 +68,7 @@ class Main {
         Sys.println('day ${day} part 2: \x1b[1m\x1b[33m$part2\x1b[0m');
         printTiming(before, after);
         
-        Sys.println("-".repeat(10));
+        Sys.println("─".repeat(15));
     }
     
     function printTiming(before:Float, after:Float) {

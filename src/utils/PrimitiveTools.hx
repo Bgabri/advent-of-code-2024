@@ -24,11 +24,11 @@ class PrimitiveTools {
         return str.substring(0, index) + str.substring(index+1);
     }
 
-    public static inline function flatten(arr:Array<String>):String {
-        var s = "";
-        for (v in arr) s += v;
-        return s;
-    }
+    // public static inline function flatten(arr:Array<String>):String {
+    //     var s = "";
+    //     for (v in arr) s += v;
+    //     return s;
+    // }
 
     public static function max<T:Float>(arr:Array<T>):T {
         var maxV:T = arr[0];
@@ -65,5 +65,46 @@ class PrimitiveTools {
             }
         }
         return n;
+    }
+
+
+    public static function prettyPrint<T, S>(arr:Array<Array<T>>, ?map: T -> S , delim = " ") {
+
+        var buffer:StringBuf = new StringBuf();
+        var length = arr[0].length;
+        var spacing = repeat(" ", Math.floor(Utils.logb(10, arr.length)));
+
+        var digits = Math.floor(Utils.logb(10, length));
+        for (i in 0...digits+1) {
+            var v = [for (j in 0...length) (Math.floor(j/Math.pow(10, digits-i))%10)];
+            // var l = v.map(n -> n == 0 ? " " : '$n');
+            buffer.add(spacing);
+            buffer.add("  │ \x1b[2m");
+            buffer.add(v.join(delim));
+            buffer.add("\x1b[0m\n");
+        }
+        var v = repeat("─", length*(1+delim.length));
+        var spacing = repeat("─", Math.floor(Utils.logb(10, arr.length)));
+
+        buffer.add(spacing);
+        buffer.add("──┼─");
+        buffer.add(v);
+        buffer.add("\n");
+
+        for (i in 0...arr.length) {
+            var l:String;
+            if (map != null) {
+                l = arr[i].map(map).join(delim);
+            } else {
+                l = arr[i].join(delim);
+            }
+
+            var spacing = repeat(" ", Math.floor(Utils.logb(10, arr.length)) - Math.floor(Utils.logb(10, i)));
+            if (i == 0) spacing = repeat(" ", Math.floor(Utils.logb(10, arr.length)));
+            buffer.add(spacing);
+            buffer.add('\x1b[2m$i\x1b[0m │ $l\n');
+        }
+
+        Sys.print(buffer.toString());
     }
 }

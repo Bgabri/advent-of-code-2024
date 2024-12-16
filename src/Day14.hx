@@ -77,9 +77,7 @@ class Day14 implements Day {
 
         var pic  = [for (i in 0...sizeY) [for (j in 0...sizeX) 0]];
         for (r in input) pic[r.p.y][r.p.x]++;
-        for (line in pic) {
-            Sys.println(line.map((n) -> n == 0 ? "\x1b[2m.\x1b[0m" : "\x1b[32m#\x1b[0m").join(" "));
-        }
+        pic.prettyPrint((n) -> n == 0 ? "\x1b[2m.\x1b[0m" : "\x1b[32m#\x1b[0m");
 
         return xmasStep;
     }
