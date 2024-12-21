@@ -5,8 +5,13 @@ using utils.PrimitiveTools;
 import Math.*;
 import utils.Utils.*;
 
+private typedef Vec = {x:Int, y:Int};
+private typedef Vec3 = {x:Int, y:Int, z:Int};
+private typedef A<V> = Array<V>;
+private typedef AA<V> = Array<Array<V>>;
+
 // haxe build.hxml XX
-private typedef Input = Array<Array<Int>>;
+private typedef Input = AA<Int>;
 class DayXX implements Day {
 
     var input:Input;
